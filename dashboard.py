@@ -201,7 +201,10 @@ def toggle_sidebar(n, nclick):
 def toggle_active_links(pathname):
     if pathname == "/":
         # Treat page 1 as the homepage / index
-        return True, False, False
+        #return True, False, False, False
+        #list = [False for i in len(maps)]
+        #list[0] = True
+        return [True] + [False for i in range(len(maps)-1)]
     return [pathname == f"/" + str(map) for map in maps]
 
 
