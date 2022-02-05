@@ -10,8 +10,7 @@ venv.bak/
 
 downloads/**
 
-!/downloads/**
-!/downloads/**/.gitkeep/
+!/downloads/.gitkeep/
 
 
 # Elastic Beanstalk Files
