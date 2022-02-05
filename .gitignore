@@ -8,12 +8,8 @@ ENV/
 env.bak/
 venv.bak/
 
-/downloads/*
+/downloads/**
 
-# mypy
-.mypy_cache/
-.dmypy.json
-dmypy.json
 
 
 # Elastic Beanstalk Files
