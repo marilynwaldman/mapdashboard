@@ -6,7 +6,9 @@ import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output, State
 
-app = dash.Dash(external_stylesheets=[dbc.themes.BOOTSTRAP])
+#app = dash.Dash(external_stylesheets=[dbc.themes.BOOTSTRAP])
+#app = dash.Dash(external_stylesheets=[dbc.themes.SLATE])
+app = dash.Dash(external_stylesheets=[dbc.themes.CERULEAN])
 
 PLOTLY_LOGO = "./static/img/logo.png"
 
@@ -127,10 +129,10 @@ CONTENT_STYLE1 = {
 
 sidebar = html.Div(
     [
-        html.H2("Maps", className="display-100"),
+        html.H2("Available Maps", className="display-100"),
         html.Hr(),
         html.P(
-            "Select a map below", className="lead"
+            "by IX Power", className="lead"
         ),
         dbc.Nav(
             [  
