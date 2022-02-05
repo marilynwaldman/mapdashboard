@@ -1,4 +1,5 @@
 # https://stackoverflow.com/questions/62732631/how-to-collapsed-sidebar-in-dash-plotly-dash-bootstrap-components
+import os
 import dash
 import dash_bootstrap_components as dbc
 import dash_core_components as dcc
@@ -9,7 +10,12 @@ app = dash.Dash(external_stylesheets=[dbc.themes.BOOTSTRAP])
 
 PLOTLY_LOGO = "./static/img/logo.png"
 
-maps = ['apple', 'orange', 'pair']
+#maps = ['apple', 'orange', 'pair']
+maps = os.listdir("./downloads")
+maps = [os.path.splitext(map)[0] for map in maps]
+
+if '.DS_Store' in maps: maps.remove('.DS_Store')
+print(maps)
 
 search_bar = dbc.Row(
     [
@@ -204,9 +210,9 @@ def render_page_content(pathname):
     elif pathname in ["/" + str(map) for map in maps]:
 
 
-        mymap = pathname[1:]
+        mymap = "./downloads/" + pathname[1:] + ".html"
         return html.Div(
-              html.Iframe(id="map", srcDoc= open("./downloads/sanluis.html",'r').read(), width='100%', height='600' )
+              html.Iframe(id="map", srcDoc= open(mymap,'r').read(), width='100%', height='600' )
         )
     # If the user tries to reach a different page, return a 404 message
     return dbc.Jumbotron(
