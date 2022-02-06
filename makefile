@@ -1,15 +1,15 @@
-version: 0.2
+install:
+	pip install --upgrade pip &&\
+		pip install -r requirements.txt
 
-phases:
-  install:
-    runtime-versions:
-      python: 3.9
-  pre_build:
-    commands:
-      - python3.9 -m venv ~/.venv
-      - source ~/.venv/bin/activate
-      - make install
+test:
+	#python -m pytest -vv test_application.py
 
-  build:
-    commands:
-      - make deploy
+lint:
+	#pylint --disable=R,C application.py
+
+deploy:
+	echo "Deploying app"
+	eb deploy flask-map-cd-env
+
+all:   install  test 
