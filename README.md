@@ -16,7 +16,12 @@ Note, the best way to use this repo is to "fork it", delete the .elasticbeanstal
 A.  check out this repo and cd into it
 
 B.  create a python virtualenv and source it and run `make all`
+"""
+`python3 -m venv ~/.eb`
+`source ~/.eb/bin/activate`
+`make all`
 
+"""
 `python3 -m venv ~/.eb`
 `source ~/.eb/bin/activate`
 `make all`
