@@ -13,14 +13,14 @@ import boto3
 s3_client = boto3.client('s3')
 BUCKET = "map-2022-01-08"
 FILE_NAME = "map.html"
-
+"""
 response = s3_client.list_objects_v2(Bucket=BUCKET)
 files = response.get("Contents")
 for file in files:
         print(type(file))
         print(file)
         s3_client.download_file(BUCKET, file['Key'], "./static/"+ str(file['Key']))
-
+"""
 maps = os.listdir("./static")
 maps = [ map for map in maps if map.endswith( '.html') ]
 maps = [os.path.splitext(map)[0] for map in maps]
