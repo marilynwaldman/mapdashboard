@@ -262,4 +262,4 @@ def render_page_content(pathname):
 if __name__ == "__main__":
       
     #print(f"file_name: {file&#91;'Key']}, size: {file&#91;'Size']}")
-    app.run_server(debug=True,port=8000)
+    app.run_server(debug=True,port=8080)
