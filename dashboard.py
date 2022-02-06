@@ -20,7 +20,7 @@ for file in files:
         print(type(file))
         print(file)
         s3_client.download_file(BUCKET, file['Key'], "./static/"+ str(file['Key']))
-               
+
 maps = os.listdir("./static")
 maps = [ map for map in maps if map.endswith( '.html') ]
 maps = [os.path.splitext(map)[0] for map in maps]
@@ -262,4 +262,4 @@ def render_page_content(pathname):
 if __name__ == "__main__":
       
     #print(f"file_name: {file&#91;'Key']}, size: {file&#91;'Size']}")
-    app.run_server(debug=True, port=8050)
+    app.run_server(debug=True)
