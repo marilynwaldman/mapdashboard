@@ -10,6 +10,6 @@ lint:
 
 deploy:
 	echo "Deploying app"
-	eb deploy flask-map-cd-env
+	eb deploy dash-map-env
 
-all:   install  test 
+all:   install  deploy 

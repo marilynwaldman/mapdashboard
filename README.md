@@ -27,7 +27,7 @@ make all
 
 C. initialize new eb app
 ```
-eb init -p python-3.9 dash-maps --region us-west-2
+eb init -p python-3.7 dash-maps --region us-west-2
 
 ```
 
