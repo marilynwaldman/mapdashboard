@@ -1,3 +1,6 @@
+pytest
+pylint
+awsebcli
 boto3==1.20.47
 dash==2.1.0
 dash-bootstrap-components==1.0.2
