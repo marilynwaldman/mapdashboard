@@ -2,9 +2,37 @@
 import os
 import dash
 import dash_bootstrap_components as dbc
-import dash_core_components as dcc
-import dash_html_components as html
+#import dash_core_components as dcc
+from dash import dcc
+from dash import html
+#import dash_html_components as html
 from dash.dependencies import Input, Output, State
+import boto3
+
+
+s3_client = boto3.client('s3')
+BUCKET = "map-2022-01-08"
+FILE_NAME = "map.html"
+
+response = s3_client.list_objects_v2(Bucket=BUCKET)
+files = response.get("Contents")
+for file in files:
+        print(type(file))
+        print(file)
+        s3_client.download_file(BUCKET, file['Key'], "./static/"+ str(file['Key']))
+               
+maps = os.listdir("./static")
+maps = [ map for map in maps if map.endswith( '.html') ]
+maps = [os.path.splitext(map)[0] for map in maps]
+home_about = ['home', 'about']
+maps.remove('about')
+maps.remove('home')
+maps.sort()
+maps = home_about + maps
+
+
+    #if '.DS_Store' in maps: maps.remove('.DS_Store')
+ 
 
 #app = dash.Dash(external_stylesheets=[dbc.themes.BOOTSTRAP])
 #app = dash.Dash(external_stylesheets=[dbc.themes.SLATE])
@@ -12,12 +40,7 @@ app = dash.Dash(external_stylesheets=[dbc.themes.CERULEAN])
 
 PLOTLY_LOGO = "./static/img/logo.png"
 
-#maps = ['apple', 'orange', 'pair']
-maps = os.listdir("./downloads")
-maps = [os.path.splitext(map)[0] for map in maps]
 
-if '.DS_Store' in maps: maps.remove('.DS_Store')
-print(maps)
 
 search_bar = dbc.Row(
     [
@@ -129,7 +152,7 @@ CONTENT_STYLE1 = {
 
 sidebar = html.Div(
     [
-        html.H2("Available Maps", className="display-100"),
+        html.H2("Maps", className="display-100"),
         html.Hr(),
         html.P(
             "by IX Power", className="lead"
@@ -194,12 +217,15 @@ def toggle_sidebar(n, nclick):
 
 # this callback uses the current pathname to set the active state of the
 # corresponding nav link to true, allowing users to tell see page they are on
+
 @app.callback(
+
     [Output(f"page-" + str(map) + "-link", "active") for map in maps],
     [Input("url", "pathname")],
-)
+)   
+
 def toggle_active_links(pathname):
-    if pathname == "/":
+    if pathname == ["/"]:
         # Treat page 1 as the homepage / index
         #return True, False, False, False
         #list = [False for i in len(maps)]
@@ -211,11 +237,15 @@ def toggle_active_links(pathname):
 @app.callback(Output("page-content", "children"), [Input("url", "pathname")])
 def render_page_content(pathname):
     if pathname in ["/"]:
-        return html.P("IX Power Maps")
+        #return html.P("IX Power Maps")
+        mymap = "./static/home.html"
+        return html.Div(
+              html.Iframe(id="map", srcDoc= open(mymap,'r').read(), width='100%', height='600' )
+        )
     elif pathname in ["/" + str(map) for map in maps]:
 
 
-        mymap = "./downloads/" + pathname[1:] + ".html"
+        mymap = "./static/" + pathname[1:] + ".html"
         return html.Div(
               html.Iframe(id="map", srcDoc= open(mymap,'r').read(), width='100%', height='600' )
         )
@@ -230,4 +260,6 @@ def render_page_content(pathname):
 
 
 if __name__ == "__main__":
+      
+    #print(f"file_name: {file&#91;'Key']}, size: {file&#91;'Size']}")
     app.run_server(debug=True, port=8050)
