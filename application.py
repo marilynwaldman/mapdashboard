@@ -7,10 +7,10 @@ from dash import dcc
 from dash import html
 #import dash_html_components as html
 from dash.dependencies import Input, Output, State
-import boto3
+##import boto3
 
 
-s3_client = boto3.client('s3')
+#s3_client = boto3.client('s3')
 BUCKET = "map-2022-01-08"
 FILE_NAME = "map.html"
 """
@@ -262,4 +262,5 @@ def render_page_content(pathname):
 if __name__ == "__main__":
       
     #print(f"file_name: {file&#91;'Key']}, size: {file&#91;'Size']}")
+    #application.run_server(debug=True,port=8080)
     application.run_server(debug=True,port=8080)
