@@ -42,7 +42,7 @@ eb init -p python-3.7 dash-maps --region us-west-2
 D. Create remote eb instance
 
 ```
-eb create dash-map-env -d -i t2.large --single
+eb create dash-map-env -i t2.large
 
 ```
 

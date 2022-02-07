@@ -34,9 +34,9 @@ maps = home_about + maps
     #if '.DS_Store' in maps: maps.remove('.DS_Store')
  
 
-#app = dash.Dash(external_stylesheets=[dbc.themes.BOOTSTRAP])
-#app = dash.Dash(external_stylesheets=[dbc.themes.SLATE])
-app = dash.Dash(external_stylesheets=[dbc.themes.CERULEAN])
+#application = dash.Dash(external_stylesheets=[dbc.themes.BOOTSTRAP])
+#application = dash.Dash(external_stylesheets=[dbc.themes.SLATE])
+application = dash.Dash(external_stylesheets=[dbc.themes.CERULEAN])
 
 PLOTLY_LOGO = "./static/img/logo.png"
 
@@ -92,7 +92,7 @@ navbar = dbc.Navbar(
 )
 
 # add callback for toggling the collapse on small screens
-@app.callback(
+@application.callback(
     Output("navbar-collapse", "is_open"),
     [Input("navbar-toggler", "n_clicks")],
     [State("navbar-collapse", "is_open")],
@@ -175,7 +175,7 @@ content = html.Div(
     id="page-content",
     style=CONTENT_STYLE)
 
-app.layout = html.Div(
+application.layout = html.Div(
     [
         dcc.Store(id='side_click'),
         dcc.Location(id="url"),
@@ -186,7 +186,7 @@ app.layout = html.Div(
 )
 
 
-@app.callback(
+@application.callback(
     [
         Output("sidebar", "style"),
         Output("page-content", "style"),
@@ -218,7 +218,7 @@ def toggle_sidebar(n, nclick):
 # this callback uses the current pathname to set the active state of the
 # corresponding nav link to true, allowing users to tell see page they are on
 
-@app.callback(
+@application.callback(
 
     [Output(f"page-" + str(map) + "-link", "active") for map in maps],
     [Input("url", "pathname")],
@@ -234,7 +234,7 @@ def toggle_active_links(pathname):
     return [pathname == f"/" + str(map) for map in maps]
 
 
-@app.callback(Output("page-content", "children"), [Input("url", "pathname")])
+@application.callback(Output("page-content", "children"), [Input("url", "pathname")])
 def render_page_content(pathname):
     if pathname in ["/"]:
         #return html.P("IX Power Maps")
@@ -262,4 +262,4 @@ def render_page_content(pathname):
 if __name__ == "__main__":
       
     #print(f"file_name: {file&#91;'Key']}, size: {file&#91;'Size']}")
-    app.run_server(debug=True,port=8080)
+    application.run_server(debug=True,port=8080)
